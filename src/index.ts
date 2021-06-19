@@ -1,17 +1,15 @@
 import express from "express";
+import routes from "./routes/index";
 
 // Initialize server
 const app = express();
 // Set a port
 const port = 3000;
 
-// Create test endpoint
-app.get("/api", (req, res) => {
-  res.send("Hello World!");
-});
+app.use("/api", routes);
 
 app.listen(port, () => {
   console.log(`server started at localhost:${port}`);
 });
 
-export default app
+export default app;
