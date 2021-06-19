@@ -4,8 +4,8 @@
   "description": "Api for image processing",
   "main": "index.js",
   "scripts": {
-    "prettier": "npx prettier --write",
-    "lint": "eslint src/**/*.{js,ts}",
+    "prettier": "npx prettier --write .",
+    "lint": "npx eslint src/**/*.ts",
     "build": "npx tsc",
     "start": "nodemon src/index.ts"
   },
