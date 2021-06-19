@@ -7,7 +7,7 @@ const port = 3000;
 
 // Create test endpoint
 app.get("/api", (req, res) => {
-  res.send("Hello world");
+  res.send("Hello World!");
 });
 
 app.listen(port, () => {

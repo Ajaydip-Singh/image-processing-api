@@ -7,7 +7,7 @@
     "prettier": "npx prettier --write .",
     "lint": "npx eslint src/**/*.ts",
     "build": "npx tsc",
-    "start": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts"
   },
   "author": "Ajaydip Singh",
   "license": "ISC",
