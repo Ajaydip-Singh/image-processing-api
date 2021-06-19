@@ -13,3 +13,5 @@ app.get("/api", (req, res) => {
 app.listen(port, () => {
   console.log(`server started at localhost:${port}`);
 });
+
+export default app

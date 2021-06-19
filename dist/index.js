@@ -10,8 +10,9 @@ var app = express_1.default();
 var port = 3000;
 // Create test endpoint
 app.get("/api", function (req, res) {
-    res.send("Hello world");
+    res.send("Hello World!");
 });
 app.listen(port, function () {
     console.log("server started at localhost:" + port);
 });
+exports.default = app;
