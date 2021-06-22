@@ -12,14 +12,11 @@ export const existsFile = async (filePath: fs.PathLike): Promise<void> => {
 };
 
 /* 
-Asynchronously rename/move file
+Asynchronously delete a file
 */
-export const renameFile = async (
-  oldFilePath: fs.PathLike,
-  newFilePath: fs.PathLike
-): Promise<void> => {
+export const deleteFile = async (filePath: fs.PathLike): Promise<void> => {
   try {
-    await fs.promises.rename(oldFilePath, newFilePath);
+    await fs.promises.unlink(filePath);
   } catch (error) {
     console.error();
   }
