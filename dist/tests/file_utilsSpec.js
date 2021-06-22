@@ -35,48 +35,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteFile = exports.existsFile = void 0;
-var fs_1 = __importDefault(require("fs"));
-/*
-Asynchronously check if a file exists
-*/
-var existsFile = function (filePath) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        try {
-            fs_1.default.promises.access(filePath, fs_1.default.constants.F_OK);
-            return [2 /*return*/, true];
-        }
-        catch (error) {
-            console.log(error);
-            return [2 /*return*/, false];
-        }
-        return [2 /*return*/];
-    });
-}); };
-exports.existsFile = existsFile;
-/*
-Asynchronously delete a file
-*/
-var deleteFile = function (filePath) { return __awaiter(void 0, void 0, void 0, function () {
-    var error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, fs_1.default.promises.unlink(filePath)];
-            case 1:
-                _a.sent();
-                return [3 /*break*/, 3];
-            case 2:
-                error_1 = _a.sent();
-                console.error();
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-exports.deleteFile = deleteFile;
+var file_utils_1 = require("../utilities/file_utils");
+describe("Test file utility functions", function () {
+    var test_file = __dirname + "/test_assets/test_image.jpeg";
+    it("should check if a file exists", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, file_utils_1.existsFile(test_file)];
+                case 1:
+                    result = _a.sent();
+                    expect(result).toBe(true);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});
