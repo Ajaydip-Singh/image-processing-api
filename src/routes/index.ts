@@ -1,10 +1,8 @@
 import express from "express";
+import resizeImageRoute from "./api/resize_image";
 
 const routes = express.Router();
 
-// Create test endpoint
-routes.get("/", (req, res) => {
-  res.send("main api route");
-});
+routes.use("/resize-image", resizeImageRoute);
 
-export default routes
+export default routes;
