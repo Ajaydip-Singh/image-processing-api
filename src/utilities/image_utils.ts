@@ -5,7 +5,7 @@ Resize image based on input parameters.
 By default the image is resized based on 
 the cover option and position center. 
 */
-const resizeImage = (
+export const resizeImage = (
   inputImagePath: string,
   outputImagePath: string,
   width: number,
@@ -19,8 +19,16 @@ const resizeImage = (
       position: position,
     })
     .toFile(outputImagePath, (err) => {
-      console.log(err);
+      if (err) throw err;
     });
 };
 
-export default resizeImage;
+/* 
+Gets image metadata
+*/
+export const getImageMetadata = async (
+  imagePath: string
+): Promise<sharp.Metadata> => {
+  const result = await sharp(imagePath).metadata();
+  return result;
+};
