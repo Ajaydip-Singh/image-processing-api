@@ -28,10 +28,15 @@ resizeImageRoute.get("/", async (req, res) => {
     `${String(filename)}_${width}_${height}.jpeg`
   );
 
-  // Check if output image already exists so we don't need to resize it
+  // check if output image already exists so we don't need to resize it
   if (!(await existsFile(outputPath))) {
     resizeImage(inputPath, outputPath, Number(width), Number(height));
   }
+
+  // send the resized file
+  setTimeout(() => {
+    res.sendFile(outputPath);
+  }, 1000);
 });
 
 export default resizeImageRoute;
