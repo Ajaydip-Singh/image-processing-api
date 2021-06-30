@@ -35,12 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var file_utils_1 = require("../utilities/file_utils");
 var image_utils_1 = require("../utilities/image_utils");
+var path_1 = __importDefault(require("path"));
 describe("Test image resizing", function () {
-    var inputFile = __dirname + "/test_assets/test_image.jpeg";
-    var outputFile = __dirname + "/test_assets/test_image_output.jpeg";
+    var inputFile = path_1.default.join(__dirname, "/test_assets/test_image.jpeg");
+    var outputFile = path_1.default.join(__dirname, "/test_assets/test_image_output.jpeg");
     var _loop_1 = function (i) {
         var widths = [100, 200, 300, 400];
         var heights = [100, 200, 300, 400];
@@ -72,7 +76,7 @@ describe("Test image resizing", function () {
                         return [2 /*return*/];
                 }
             });
-        }); }, 5000);
+        }); });
     };
     for (var i = 0; i < 4; i++) {
         _loop_1(i);

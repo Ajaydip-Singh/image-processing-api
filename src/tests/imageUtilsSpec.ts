@@ -1,9 +1,13 @@
 import { deleteFile } from "../utilities/file_utils";
 import { resizeImage, getImageMetadata } from "../utilities/image_utils";
+import path from "path";
 
 describe("Test image resizing", () => {
-  const inputFile = __dirname + "/test_assets/test_image.jpeg";
-  const outputFile = __dirname + "/test_assets/test_image_output.jpeg";
+  const inputFile = path.join(__dirname, "/test_assets/test_image.jpeg");
+  const outputFile = path.join(
+    __dirname,
+    "/test_assets/test_image_output.jpeg"
+  );
 
   for (let i = 0; i < 4; i++) {
     const widths = [100, 200, 300, 400];
@@ -21,6 +25,6 @@ describe("Test image resizing", () => {
 
     afterEach(async () => {
       await deleteFile(outputFile);
-    }, 5000);
+    });
   }
 });

@@ -39,14 +39,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var file_utils_1 = require("../utilities/file_utils");
 describe("Test file utility functions", function () {
     var test_file = __dirname + "/test_assets/test_image.jpeg";
-    it("should check if a file exists", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var result;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, file_utils_1.existsFile(test_file)];
+    it("should not throw error if a file exists", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _a = expect;
+                    return [4 /*yield*/, file_utils_1.existsFile(test_file)];
                 case 1:
-                    result = _a.sent();
-                    expect(result).toBe(true);
+                    _a.apply(void 0, [_b.sent()]).not.toThrowError;
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it("should throw error if a file does not exist", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _a = expect;
+                    return [4 /*yield*/, file_utils_1.existsFile("random.jpeg")];
+                case 1:
+                    _a.apply(void 0, [_b.sent()]).toThrowError;
                     return [2 /*return*/];
             }
         });

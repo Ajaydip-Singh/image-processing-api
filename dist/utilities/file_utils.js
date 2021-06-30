@@ -45,16 +45,21 @@ var fs_1 = __importDefault(require("fs"));
 Asynchronously check if a file exists
 */
 var existsFile = function (filePath) { return __awaiter(void 0, void 0, void 0, function () {
+    var error_1;
     return __generator(this, function (_a) {
-        try {
-            fs_1.default.promises.access(filePath, fs_1.default.constants.F_OK);
-            return [2 /*return*/, true];
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, fs_1.default.promises.access(filePath, fs_1.default.constants.F_OK)];
+            case 1:
+                _a.sent();
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                console.log(error_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
-        catch (error) {
-            console.log(error);
-            return [2 /*return*/, false];
-        }
-        return [2 /*return*/];
     });
 }); };
 exports.existsFile = existsFile;
@@ -62,7 +67,7 @@ exports.existsFile = existsFile;
 Asynchronously delete a file
 */
 var deleteFile = function (filePath) { return __awaiter(void 0, void 0, void 0, function () {
-    var error_1;
+    var error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -72,8 +77,8 @@ var deleteFile = function (filePath) { return __awaiter(void 0, void 0, void 0, 
                 _a.sent();
                 return [3 /*break*/, 3];
             case 2:
-                error_1 = _a.sent();
-                console.error();
+                error_2 = _a.sent();
+                console.log(error_2);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }

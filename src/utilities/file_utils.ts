@@ -3,13 +3,11 @@ import fs from "fs";
 /* 
 Asynchronously check if a file exists
 */
-export const existsFile = async (filePath: fs.PathLike): Promise<boolean> => {
+export const existsFile = async (filePath: fs.PathLike): Promise<void> => {
   try {
-    fs.promises.access(filePath, fs.constants.F_OK);
-    return true
+    await fs.promises.access(filePath, fs.constants.F_OK);
   } catch (error) {
     console.log(error);
-    return false
   }
 };
 
@@ -20,6 +18,6 @@ export const deleteFile = async (filePath: fs.PathLike): Promise<void> => {
   try {
     await fs.promises.unlink(filePath);
   } catch (error) {
-    console.error();
+    console.log(error);
   }
 };
