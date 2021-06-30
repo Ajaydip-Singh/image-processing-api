@@ -51,6 +51,22 @@ resizeImageRoute.get("/", function (req, res) { return __awaiter(void 0, void 0,
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                // handle query string parameters
+                if (req.query.filename == null) {
+                    res.status(400);
+                    res.send("Request missing filename query string parameter");
+                    return [2 /*return*/];
+                }
+                if (req.query.width == null) {
+                    res.status(400);
+                    res.send("Request missing width query string parameter");
+                    return [2 /*return*/];
+                }
+                if (req.query.height == null) {
+                    res.status(400);
+                    res.send("Request missing height query string parameter");
+                    return [2 /*return*/];
+                }
                 filename = req.query.filename;
                 width = req.query.width;
                 height = req.query.height;
@@ -60,7 +76,7 @@ resizeImageRoute.get("/", function (req, res) { return __awaiter(void 0, void 0,
                 // check if image exists in the full folder in assets
                 if (!(_a.sent())) {
                     res.status(400);
-                    res.send("404: Image file " + filename + " does not exist");
+                    res.send("Image file " + filename + " does not exist");
                     return [2 /*return*/];
                 }
                 outputPath = path_1.default.join(assetsDir, "embed", String(filename) + "_" + width + "_" + height + ".jpeg");
