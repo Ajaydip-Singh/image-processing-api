@@ -40,18 +40,44 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
+var image_utils_1 = require("../../utilities/image_utils");
+var file_utils_1 = require("../../utilities/file_utils");
 var path_1 = __importDefault(require("path"));
 var resizeImageRoute = express_1.default.Router();
 // setup base path where images are stored
 var assetsDir = path_1.default.resolve(__dirname, "../../../assets");
 resizeImageRoute.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var filename, width, height, inputPath;
+    var filename, width, height, inputPath, err_1, outputPath;
     return __generator(this, function (_a) {
-        filename = req.query.filename;
-        width = req.query.width;
-        height = req.query.height;
-        inputPath = path_1.default.join(assetsDir, "full", String(filename) + ".jpeg");
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0:
+                filename = req.query.filename;
+                width = req.query.width;
+                height = req.query.height;
+                inputPath = path_1.default.join(assetsDir, "full", String(filename) + ".jpeg");
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, file_utils_1.existsFile(inputPath)];
+            case 2:
+                _a.sent();
+                return [3 /*break*/, 4];
+            case 3:
+                err_1 = _a.sent();
+                res.status(400);
+                res.send("Image file does not exist");
+                return [3 /*break*/, 4];
+            case 4:
+                outputPath = path_1.default.join(assetsDir, "embed", String(filename) + "_" + width + "_" + height + ".jpeg");
+                return [4 /*yield*/, file_utils_1.existsFile(outputPath)];
+            case 5:
+                // Check if output image already exists so we don't need to resize it
+                if (!(_a.sent())) {
+                    image_utils_1.resizeImage(inputPath, outputPath, Number(width), Number(height));
+                    console.log("after resize image");
+                }
+                return [2 /*return*/];
+        }
     });
 }); });
 exports.default = resizeImageRoute;

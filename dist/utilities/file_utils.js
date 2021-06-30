@@ -53,11 +53,10 @@ var existsFile = function (filePath) { return __awaiter(void 0, void 0, void 0, 
                 return [4 /*yield*/, fs_1.default.promises.access(filePath, fs_1.default.constants.F_OK)];
             case 1:
                 _a.sent();
-                return [3 /*break*/, 3];
+                return [2 /*return*/, true];
             case 2:
                 error_1 = _a.sent();
-                console.log(error_1);
-                return [3 /*break*/, 3];
+                return [2 /*return*/, false];
             case 3: return [2 /*return*/];
         }
     });
@@ -75,11 +74,10 @@ var deleteFile = function (filePath) { return __awaiter(void 0, void 0, void 0, 
                 return [4 /*yield*/, fs_1.default.promises.unlink(filePath)];
             case 1:
                 _a.sent();
-                return [3 /*break*/, 3];
+                return [2 /*return*/, true];
             case 2:
                 error_2 = _a.sent();
-                console.log(error_2);
-                return [3 /*break*/, 3];
+                return [2 /*return*/, false];
             case 3: return [2 /*return*/];
         }
     });
