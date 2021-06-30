@@ -9,6 +9,25 @@ const resizeImageRoute = express.Router();
 const assetsDir = path.resolve(__dirname, "../../../assets");
 
 resizeImageRoute.get("/", async (req, res) => {
+  // handle query string parameters
+  if (req.query.filename == null) {
+    res.status(400);
+    res.send("Request missing filename query string parameter");
+    return;
+  }
+
+  if (req.query.width == null) {
+    res.status(400);
+    res.send("Request missing width query string parameter");
+    return;
+  }
+
+  if (req.query.height == null) {
+    res.status(400);
+    res.send("Request missing height query string parameter");
+    return;
+  }
+
   const filename = req.query.filename;
   const width = req.query.width;
   const height = req.query.height;
@@ -18,7 +37,7 @@ resizeImageRoute.get("/", async (req, res) => {
   // check if image exists in the full folder in assets
   if (!(await existsFile(inputPath))) {
     res.status(400);
-    res.send(`404: Image file ${filename} does not exist`);
+    res.send(`Image file ${filename} does not exist`);
     return;
   }
 
