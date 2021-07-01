@@ -60,7 +60,6 @@ resizeImageRoute.get("/", query_string_checker_1.queryStringChecker(["filename",
                     paramValidator.validatePositiveInteger(Number(req.query.height), "Height");
                 }
                 catch (err) {
-                    console.log(err);
                     res.status(400);
                     res.send(String(err));
                 }

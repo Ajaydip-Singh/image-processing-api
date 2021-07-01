@@ -23,7 +23,6 @@ resizeImageRoute.get(
         "Height"
       );
     } catch (err) {
-      console.log(err);
       res.status(400);
       res.send(String(err));
     }

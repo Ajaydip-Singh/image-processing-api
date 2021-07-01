@@ -6,23 +6,25 @@ var ParameterValidator = /** @class */ (function () {
     }
     ParameterValidator.prototype.validateString = function (parameter, parameterName) {
         if (parameterName === void 0) { parameterName = "Value"; }
+        var errorMessage = parameterName + " is not valid. Expected a string";
         if (!parameter) {
-            throw new Error(parameterName + " is null. Expected a string.");
+            throw new Error(errorMessage);
         }
         else if (typeof parameter !== "string") {
-            throw new Error(parameterName + " is not a string. Expected a string.");
+            throw new Error(errorMessage);
         }
     };
     ParameterValidator.prototype.validatePositiveInteger = function (parameter, parameterName) {
         if (parameterName === void 0) { parameterName = "Value"; }
+        var errorMessage = parameterName + " is not valid. Expected a positive integer";
         if (!parameter) {
-            throw new Error(parameterName + " is not a number. Expected a positive integer.");
+            throw new Error(errorMessage);
         }
         else if (typeof parameter !== "number") {
-            throw new Error(parameterName + " is not a number. Expected a positive integer.");
+            throw new Error(errorMessage);
         }
         else if (parameter <= 0) {
-            throw new Error(parameterName + " is zero or less than zero. Expected a positive integer.");
+            throw new Error(errorMessage);
         }
     };
     return ParameterValidator;
