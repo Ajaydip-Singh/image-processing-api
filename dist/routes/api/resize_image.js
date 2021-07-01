@@ -42,30 +42,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var image_utils_1 = require("../../utilities/image_utils");
 var file_utils_1 = require("../../utilities/file_utils");
+var query_string_checker_1 = require("../../middleware/query_string_checker");
+var param_validator_utils_1 = require("../../utilities/param_validator_utils");
 var path_1 = __importDefault(require("path"));
 var resizeImageRoute = express_1.default.Router();
+var paramValidator = new param_validator_utils_1.ParameterValidator();
 // setup base path where images are stored
 var assetsDir = path_1.default.resolve(__dirname, "../../../assets");
-resizeImageRoute.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+resizeImageRoute.get("/", query_string_checker_1.queryStringChecker(["filename", "width", "height"]), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var filename, width, height, inputPath, outputPath;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                // handle query string parameters
-                if (req.query.filename == null) {
-                    res.status(400);
-                    res.send("Request missing filename query string parameter");
-                    return [2 /*return*/];
+                try {
+                    paramValidator.validateString(String(req.query.filename), "Filename");
+                    paramValidator.validatePositiveInteger(Number(req.query.width), "Width");
+                    paramValidator.validatePositiveInteger(Number(req.query.height), "Height");
                 }
-                if (req.query.width == null) {
+                catch (err) {
+                    console.log(err);
                     res.status(400);
-                    res.send("Request missing width query string parameter");
-                    return [2 /*return*/];
-                }
-                if (req.query.height == null) {
-                    res.status(400);
-                    res.send("Request missing height query string parameter");
-                    return [2 /*return*/];
+                    res.send(String(err));
                 }
                 filename = req.query.filename;
                 width = req.query.width;
@@ -77,7 +74,6 @@ resizeImageRoute.get("/", function (req, res) { return __awaiter(void 0, void 0,
                 if (!(_a.sent())) {
                     res.status(400);
                     res.send("Image file " + filename + " does not exist");
-                    return [2 /*return*/];
                 }
                 outputPath = path_1.default.join(assetsDir, "embed", String(filename) + "_" + width + "_" + height + ".jpeg");
                 return [4 /*yield*/, file_utils_1.existsFile(outputPath)];
