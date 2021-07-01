@@ -44,6 +44,20 @@ var index_1 = __importDefault(require("../index"));
 var path_1 = __importDefault(require("path"));
 var file_utils_1 = require("../utilities/file_utils");
 var request = supertest_1.default(index_1.default);
+describe("Test base /api endpoint", function () {
+    it("should get status code 200 for visiting the endpoint", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get("/api")];
+                case 1:
+                    response = _a.sent();
+                    expect(response.status).toBe(200);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});
 describe("Test /api/resize-image endpoint", function () {
     var testImageOutputPath = path_1.default.resolve(__dirname, "../../assets/embed/test-image_400_400.jpeg");
     describe("Test existence of query string parameters", function () {

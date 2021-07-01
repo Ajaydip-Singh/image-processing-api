@@ -5,6 +5,13 @@ import { deleteFile } from "../utilities/file_utils";
 
 const request = supertest(app);
 
+describe("Test base /api endpoint", () => {
+  it("should get status code 200 for visiting the endpoint", async () => {
+    const response = await request.get("/api");
+    expect(response.status).toBe(200);
+  });
+});
+
 describe("Test /api/resize-image endpoint", () => {
   const testImageOutputPath = path.resolve(
     __dirname,

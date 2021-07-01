@@ -9,7 +9,7 @@ const port = 3000;
 
 app.use("/api", routes);
 
-app.get("/", (req: express.Request, res: express.Response): void => {
+app.get("/api", (req: express.Request, res: express.Response): void => {
   const readmePath = path.resolve(__dirname, "../README.md");
   res.sendFile(readmePath);
 });

@@ -11,7 +11,7 @@ var app = express_1.default();
 // Set a port
 var port = 3000;
 app.use("/api", index_1.default);
-app.get("/", function (req, res) {
+app.get("/api", function (req, res) {
     var readmePath = path_1.default.resolve(__dirname, "../README.md");
     res.sendFile(readmePath);
 });
