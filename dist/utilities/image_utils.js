@@ -49,14 +49,20 @@ the cover option and position center.
 var resizeImage = function (inputImagePath, outputImagePath, width, height, resizeOption, position) {
     if (resizeOption === void 0) { resizeOption = "cover"; }
     if (position === void 0) { position = "centre"; }
-    sharp_1.default(inputImagePath)
-        .resize(width, height, {
-        fit: resizeOption,
-        position: position,
-    })
-        .toFile(outputImagePath, function (err) {
-        if (err)
-            throw err;
+    return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, sharp_1.default(inputImagePath)
+                        .resize(width, height, {
+                        fit: resizeOption,
+                        position: position,
+                    })
+                        .toFile(outputImagePath)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
     });
 };
 exports.resizeImage = resizeImage;

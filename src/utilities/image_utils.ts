@@ -5,22 +5,20 @@ Resize image based on input parameters.
 By default the image is resized based on 
 the cover option and position center. 
 */
-export const resizeImage = (
+export const resizeImage = async (
   inputImagePath: string,
   outputImagePath: string,
   width: number,
   height: number,
   resizeOption = "cover",
   position = "centre"
-): void => {
-  sharp(inputImagePath)
+): Promise<void> => {
+  await sharp(inputImagePath)
     .resize(width, height, {
       fit: resizeOption as keyof FitEnum,
       position: position,
     })
-    .toFile(outputImagePath, (err) => {
-      if (err) throw err;
-    });
+    .toFile(outputImagePath);
 };
 
 /* 
