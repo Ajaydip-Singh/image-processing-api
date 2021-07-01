@@ -41,54 +41,195 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var supertest_1 = __importDefault(require("supertest"));
 var index_1 = __importDefault(require("../index"));
+var path_1 = __importDefault(require("path"));
+var file_utils_1 = require("../utilities/file_utils");
 var request = supertest_1.default(index_1.default);
 describe("Test /api/resize-image endpoint", function () {
-    it("should get status code 400 for request without any string parameters", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get("/api/resize-image")];
-                case 1:
-                    response = _a.sent();
-                    expect(response.status).toBe(400);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it("should get status code 400 for request without filename string parameter", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get("/api/resize-image?width=200&heigh=200")];
-                case 1:
-                    response = _a.sent();
-                    expect(response.status).toBe(400);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it("should get status code 400 for request without height string parameter", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=test-image&width=200")];
-                case 1:
-                    response = _a.sent();
-                    expect(response.status).toBe(400);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it("should get status code 400 for request without width string parameter", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=test-image&height=200")];
-                case 1:
-                    response = _a.sent();
-                    expect(response.status).toBe(400);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
+    var testImageOutputPath = path_1.default.resolve(__dirname, "../../assets/embed/test-image_400_400.jpeg");
+    describe("Test existence of query string parameters", function () {
+        it("should get status code 400 for request without any string parameters", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("should get status code 400 for request without filename string parameter", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image?width=200&height=200")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("should get status code 400 for request without height string parameter", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=test-image&width=200")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("should get status code 400 for request without width string parameter", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=test-image&height=200")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+    });
+    describe("Test validity of query string parameters", function () {
+        it("should get status code 200 if height and width parameters are positive integer", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=test-image&width=400&height=400")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(200);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("should get status code 400 if filename does not exist in full directory", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=random-file&width=400&height=400")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("should get status code 400 if height parameter is not an integer", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=test-image&width=200&height=abcd")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("should get status code 400 if height parameter is negative", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=test-image&width=200&height=-100")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("should get status code 400 if width parameter is not an integer", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=test-image&width=abcd&height=100")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("should get status code 400 if width parameter is negative", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=test-image&width=-200&height=100")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("should get status code 400 if width parameter is negative", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=test-image&width=-200&height=100")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        afterAll(function () { return __awaiter(void 0, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                file_utils_1.deleteFile(testImageOutputPath);
+                return [2 /*return*/];
+            });
+        }); });
+    });
+    describe("Test image resizing process in endpoint", function () {
+        it("should get status code 200 for resizing an image that exists", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=test-image&width=400&height=400")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(200);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("should get status code 400 if height parameter is too large for jpeg resizing", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=test-image&width=400&height=1000000")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it("should get status code 400 if width parameter is too large for jpeg resizing", function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("/api/resize-image?filename=test-image&width=1000000&height=400")];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        afterAll(function () { return __awaiter(void 0, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                file_utils_1.deleteFile(testImageOutputPath);
+                return [2 /*return*/];
+            });
+        }); });
+    });
 });

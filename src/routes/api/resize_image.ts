@@ -23,7 +23,7 @@ resizeImageRoute.get(
         "Height"
       );
     } catch (err) {
-      res.status(400).send(String(err));
+      res.status(400);
       res.send(String(err));
       return;
     }
