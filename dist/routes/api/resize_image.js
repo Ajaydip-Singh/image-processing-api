@@ -60,8 +60,9 @@ resizeImageRoute.get("/", query_string_checker_1.queryStringChecker(["filename",
                     paramValidator.validatePositiveInteger(Number(req.query.height), "Height");
                 }
                 catch (err) {
-                    res.status(400);
+                    res.status(400).send(String(err));
                     res.send(String(err));
+                    return [2 /*return*/];
                 }
                 filename = req.query.filename;
                 width = req.query.width;
@@ -73,6 +74,7 @@ resizeImageRoute.get("/", query_string_checker_1.queryStringChecker(["filename",
                 if (!(_a.sent())) {
                     res.status(400);
                     res.send("Image file " + filename + " does not exist");
+                    return [2 /*return*/];
                 }
                 outputPath = path_1.default.join(assetsDir, "embed", String(filename) + "_" + width + "_" + height + ".jpeg");
                 return [4 /*yield*/, file_utils_1.existsFile(outputPath)];
@@ -89,7 +91,7 @@ resizeImageRoute.get("/", query_string_checker_1.queryStringChecker(["filename",
                 err_1 = _a.sent();
                 res.status(400);
                 res.send(String(err_1));
-                return [3 /*break*/, 6];
+                return [2 /*return*/];
             case 6:
                 res.sendFile(outputPath);
                 return [2 /*return*/];

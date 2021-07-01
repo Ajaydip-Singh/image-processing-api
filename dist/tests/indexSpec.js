@@ -43,7 +43,7 @@ var supertest_1 = __importDefault(require("supertest"));
 var index_1 = __importDefault(require("../index"));
 var request = supertest_1.default(index_1.default);
 describe("Test /api/resize-image endpoint", function () {
-    it("should get status code 400 for request without any string parameters", function (done) { return __awaiter(void 0, void 0, void 0, function () {
+    it("should get status code 400 for request without any string parameters", function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -51,12 +51,11 @@ describe("Test /api/resize-image endpoint", function () {
                 case 1:
                     response = _a.sent();
                     expect(response.status).toBe(400);
-                    done();
                     return [2 /*return*/];
             }
         });
     }); });
-    it("should get status code 400 for request without filename string parameter", function (done) { return __awaiter(void 0, void 0, void 0, function () {
+    it("should get status code 400 for request without filename string parameter", function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -64,12 +63,11 @@ describe("Test /api/resize-image endpoint", function () {
                 case 1:
                     response = _a.sent();
                     expect(response.status).toBe(400);
-                    done();
                     return [2 /*return*/];
             }
         });
     }); });
-    it("should get status code 400 for request without height string parameter", function (done) { return __awaiter(void 0, void 0, void 0, function () {
+    it("should get status code 400 for request without height string parameter", function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -77,12 +75,11 @@ describe("Test /api/resize-image endpoint", function () {
                 case 1:
                     response = _a.sent();
                     expect(response.status).toBe(400);
-                    done();
                     return [2 /*return*/];
             }
         });
     }); });
-    it("should get status code 400 for request without width string parameter", function (done) { return __awaiter(void 0, void 0, void 0, function () {
+    it("should get status code 400 for request without width string parameter", function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -90,7 +87,6 @@ describe("Test /api/resize-image endpoint", function () {
                 case 1:
                     response = _a.sent();
                     expect(response.status).toBe(400);
-                    done();
                     return [2 /*return*/];
             }
         });

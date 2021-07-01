@@ -23,8 +23,9 @@ resizeImageRoute.get(
         "Height"
       );
     } catch (err) {
-      res.status(400);
+      res.status(400).send(String(err));
       res.send(String(err));
+      return;
     }
 
     const filename = req.query.filename;
@@ -37,6 +38,7 @@ resizeImageRoute.get(
     if (!(await existsFile(inputPath))) {
       res.status(400);
       res.send(`Image file ${filename} does not exist`);
+      return;
     }
 
     const outputPath = path.join(
@@ -52,6 +54,7 @@ resizeImageRoute.get(
       } catch (err) {
         res.status(400);
         res.send(String(err));
+        return;
       }
     }
     res.sendFile(outputPath);

@@ -17,6 +17,7 @@ var queryStringChecker = function (fields) {
             res
                 .status(400)
                 .send(fails.join(", ") + " " + (fails.length > 1 ? "are" : "is") + " missing in query string.");
+            return;
         }
         next();
     };

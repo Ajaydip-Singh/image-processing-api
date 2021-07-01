@@ -25,6 +25,7 @@ export const queryStringChecker = (fields: string[]): express.Handler => {
             fails.length > 1 ? "are" : "is"
           } missing in query string.`
         );
+      return;
     }
     next();
   };
