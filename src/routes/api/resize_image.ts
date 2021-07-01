@@ -48,7 +48,12 @@ resizeImageRoute.get(
 
     // check if output image already exists so we don't need to resize it
     if (!(await existsFile(outputPath))) {
-      resizeImage(inputPath, outputPath, Number(width), Number(height));
+      try {
+        await resizeImage(inputPath, outputPath, Number(width), Number(height));
+      } catch (err) {
+        res.status(400);
+        res.send(String(err));
+      }
     }
 
     // send the resized file

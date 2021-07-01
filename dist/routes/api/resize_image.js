@@ -50,7 +50,7 @@ var paramValidator = new param_validator_utils_1.ParameterValidator();
 // setup base path where images are stored
 var assetsDir = path_1.default.resolve(__dirname, "../../../assets");
 resizeImageRoute.get("/", query_string_checker_1.queryStringChecker(["filename", "width", "height"]), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var filename, width, height, inputPath, outputPath;
+    var filename, width, height, inputPath, outputPath, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -78,10 +78,20 @@ resizeImageRoute.get("/", query_string_checker_1.queryStringChecker(["filename",
                 outputPath = path_1.default.join(assetsDir, "embed", String(filename) + "_" + width + "_" + height + ".jpeg");
                 return [4 /*yield*/, file_utils_1.existsFile(outputPath)];
             case 2:
-                // check if output image already exists so we don't need to resize it
-                if (!(_a.sent())) {
-                    image_utils_1.resizeImage(inputPath, outputPath, Number(width), Number(height));
-                }
+                if (!!(_a.sent())) return [3 /*break*/, 6];
+                _a.label = 3;
+            case 3:
+                _a.trys.push([3, 5, , 6]);
+                return [4 /*yield*/, image_utils_1.resizeImage(inputPath, outputPath, Number(width), Number(height))];
+            case 4:
+                _a.sent();
+                return [3 /*break*/, 6];
+            case 5:
+                err_1 = _a.sent();
+                res.status(400);
+                res.send(String(err_1));
+                return [3 /*break*/, 6];
+            case 6:
                 // send the resized file
                 setTimeout(function () {
                     res.sendFile(outputPath);
