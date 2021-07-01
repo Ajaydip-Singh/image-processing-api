@@ -91,10 +91,7 @@ resizeImageRoute.get("/", query_string_checker_1.queryStringChecker(["filename",
                 res.send(String(err_1));
                 return [3 /*break*/, 6];
             case 6:
-                // send the resized file
-                setTimeout(function () {
-                    res.sendFile(outputPath);
-                }, 1000);
+                res.sendFile(outputPath);
                 return [2 /*return*/];
         }
     });

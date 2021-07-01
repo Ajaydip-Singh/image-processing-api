@@ -14,7 +14,7 @@ const assetsDir = path.resolve(__dirname, "../../../assets");
 resizeImageRoute.get(
   "/",
   queryStringChecker(["filename", "width", "height"]),
-  async (req: express.Request, res: express.Response) => {
+  async (req: express.Request, res: express.Response): Promise<void> => {
     try {
       paramValidator.validateString(String(req.query.filename), "Filename");
       paramValidator.validatePositiveInteger(Number(req.query.width), "Width");
@@ -54,11 +54,7 @@ resizeImageRoute.get(
         res.send(String(err));
       }
     }
-
-    // send the resized file
-    setTimeout(() => {
-      res.sendFile(outputPath);
-    }, 1000);
+    res.sendFile(outputPath);
   }
 );
 
